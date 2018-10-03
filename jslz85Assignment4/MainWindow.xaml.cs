@@ -40,7 +40,14 @@ namespace jslz85Assignment4
         {
             startSave();
         }
-        private void About_Click(object sender, RoutedEventArgs e)
+        private void Open_Click(object sender, RoutedEventArgs e)
+        {
+            if (handleSaveRequest())
+            {
+                startLoad();
+            }
+        }
+            private void About_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.MessageBox.Show("About");
 
@@ -62,6 +69,33 @@ namespace jslz85Assignment4
                 textBox.Text = "";
                 startNewTextDocument();
             }
+        }
+        private void startLoad()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            openFileDialog.Filter = "Text Documents (.txt)|*.txt"; // Filter files by extension
+
+            if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                loadDocument(openFileDialog.FileName);
+            }
+        }
+        private void loadDocument(String filePath)
+        {
+            var fStreamEmployee = new FileStream(filePath, FileMode.Open);
+            var binFormatterEmployee = new BinaryFormatter();
+            try
+            {
+            var currentEmployee = (TextDocument)binFormatterEmployee.Deserialize(fStreamEmployee);
+            textBox.Text = currentEmployee.content;
+            }
+            catch { }
+            fStreamEmployee.Close();
+
+            
+            currentFilePath = filePath;
+            unsetModifiedState();
         }
         private Boolean handleSaveRequest()
         {
