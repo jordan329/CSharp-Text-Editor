@@ -10,18 +10,18 @@
         <DockPanel>
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_File">
-                    <MenuItem Header="_New" />
-                    <MenuItem Header="_Open" />
-                    <MenuItem Header="_Save" />
-                    <MenuItem Header="_Save As"/>
+                    <MenuItem Header="_New" Click="New_Click"/>
+                    <MenuItem Header="_Open" Name="Open"/>
+                    <MenuItem Header="_Save" Name="Save" Click="Save_Click"/>
+                    <MenuItem Header="_Save As" Name="Save_As"/>
                     <Separator />
-                    <MenuItem Header="_Exit" />
+                    <MenuItem Header="_Exit" Name="Exit" Click='Exit_Click'/>
                 </MenuItem>
                 <MenuItem Header="_Help">
-                    <MenuItem Header="_About" Click="About_Click"/>
+                    <MenuItem Header="_About" Name="About" Click="About_Click"/>
                 </MenuItem>
             </Menu>
-            <TextBox AcceptsReturn="True"  AcceptsTab="True" ScrollViewer.VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"/>
+            <TextBox TextChanged='TextBox_Changed' Name="textBox" AcceptsReturn="True"  AcceptsTab="True" ScrollViewer.VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"/>
         </DockPanel>
     </Grid>
 </Window>
