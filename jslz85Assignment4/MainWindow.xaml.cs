@@ -25,9 +25,10 @@ namespace jslz85Assignment4
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        TextDocument document = new TextDocument();
         String currentFilePath = "new.txt";
         bool modified = false;
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -49,7 +50,7 @@ namespace jslz85Assignment4
         }
             private void About_Click(object sender, RoutedEventArgs e)
         {
-            System.Windows.MessageBox.Show("About");
+            System.Windows.MessageBox.Show("This is a text editor. \nAuthored by Jordan Liebman for CS4400 Fall 2018");
 
         }
 
@@ -66,6 +67,7 @@ namespace jslz85Assignment4
             if (handleSaveRequest())
             {
                 //start new document
+                document = new TextDocument();
                 textBox.Text = "";
                 startNewTextDocument();
             }
@@ -87,8 +89,9 @@ namespace jslz85Assignment4
             var binFormatterEmployee = new BinaryFormatter();
             try
             {
-            var currentEmployee = (TextDocument)binFormatterEmployee.Deserialize(fStreamEmployee);
-            textBox.Text = currentEmployee.content;
+                TextDocument currentdocument = document;
+                currentdocument = (TextDocument)binFormatterEmployee.Deserialize(fStreamEmployee);
+            textBox.Text = currentdocument.content;
             }
             catch { }
             fStreamEmployee.Close();
@@ -146,7 +149,7 @@ namespace jslz85Assignment4
         }
         private void saveDocument(String filePath)
         {
-            var currentDocument = new TextDocument();
+            TextDocument currentDocument = document;
             currentDocument.content = textBox.Text;
 
             var fStreamEmployee = new FileStream(filePath, FileMode.Create);

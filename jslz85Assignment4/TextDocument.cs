@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace jslz85Assignment4
 {
+    [Serializable]
     class TextDocument
     {
 
