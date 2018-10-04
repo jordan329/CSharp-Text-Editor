@@ -1,19 +1,15 @@
 + 1. (5pt) Use a TextBox as the text input user interface element. The TextBox is to scale
 + bigger/smaller when the window is made bigger/smaller.
 + 
-+ 
 + 2. (5pt) The TextBox is to have a vertical scroll bar appear when the content is bigger than the
 + TextBox.
-+
 +
 + 3. (5pt) The text in the TextBox is to wrap when a line is longer than the width of the TextBox.
 + No horizontal scroll bar is to appear. Make sure the TextBox UI element allows the user to
 + enter multiple lines (accepts line returns) and allows the user to enter tabs in the content.
 +
-+
 + 4. (5pt) No interface elements (TextBox, Buttons) should disappear or become unusable when
 + the window is made bigger/smaller.
-+
 +
 + The Exit menu item should cause the application to close.
 +
@@ -28,72 +24,64 @@
 + - About
 +
 + 5. (5pt) All files are to be saved as .txt files. 
++ The New menu item is to provide the user with a blank document to edit a new document.
++
++ The About menu item is to display a dialog that contains information about the application
++ and/or developer.
++
++ (2pts) The New menu item is to provide the user with a blank document to edit a new
++ document.
++
++ The editor should only allow opening .txt files.
++
++ (5pts) If a menu item does not apply when the document is in a particular state then it
++ should be made inactive (greyed out and not selectable). For example, if there is
++ nothing to save, then Save should be made inactive. Apply this rule where needed.
++
++ (2pts) It should be possible for the user to save an empty document.
++
++ (5pts) Intelligently implement management of file paths so that the user goes to
++ expected places when a file open or save dialog appears. For example when the user
++ chooses Save As and if the document was previously saved or opened from an existing
++ file the file save dialog should show the current name of the file at its current location
++ in the file system. Apply this rule where needed.
++
++ (2pts) The Exit menu item should cause the application to close.
++
++ (2pts) The About menu item is to display a dialog that contains information about the
++ application and/or developer.
++ 
++ 11. (35pts) The text document should be represented in the application as an object.
+	///////////////////////////////////////////////////////////////////////////////////////////////////
 
-The editor should only allow opening .txt files.
+	fix save and open so they are mvc (need to write methods for textdocument class)
 
-Open and Save/Save as should have the functions of opening and saving the file using
-OpenFileDialog and SaveFileDialog.
+	fix save as/ save functionality, think about when each needs to be available.
 
-The New menu item is to provide the user with a blank document to edit a new document.
-
-
-The About menu item is to display a dialog that contains information about the application
-and/or developer.
-
-
-(5pts) If a menu item does not apply when the document is in a particular state then it
-should be made inactive (greyed out and not selectable). For example, if there is
-nothing to save, then Save should be made inactive. Apply this rule where needed.
-
-
-(2pts) The New menu item is to provide the user with a blank document to edit a new
-document.
-
-
-(5pts) The Open menu item is to allow the user to open an existing text document.
-
-
-(5pts) The Save menu item is to quietly (no dialog) save the document to the place it
-was last saved or opened from OR if this a new document that was never saved a file
-dialog is to be displayed that allows the user to select the location and name for the
-file.
-
-
-(5pts) The Save As menu item is to display a file save dialog that allows the user to
-select the location and name for the file.
-
-
-(2pts) It should be possible for the user to save an empty document.
-
-
-(5pts) Intelligently implement management of file paths so that the user goes to
-expected places when a file open or save dialog appears. For example when the user
-chooses Save As and if the document was previously saved or opened from an existing
-file the file save dialog should show the current name of the file at its current location
-in the file system. Apply this rule where needed.
-
+	fix 
+You are to create a class called TextDocument that holds the data and methods associated with the text
+document that is being edited
 
 (5pts) If the document has changed since the last time it was saved or since it was
 opened/created the user should be asked whether or not they want to save it if an action
 they are taking will cause the changes to be lost. They should have the option to save,
 not save, or cancel the action.
 
+Open and Save/Save as should have the functions of opening and saving the file using
+OpenFileDialog and SaveFileDialog.
 
-(2pts) The Exit menu item should cause the application to close.
+(5pts) The Open menu item is to allow the user to open an existing text document.
 
+(5pts) The Save menu item is to quietly (no dialog) save the document to the place it
+was last saved or opened from OR if this a new document that was never saved a file
+dialog is to be displayed that allows the user to select the location and name for the
+file.
 
-(2pts) The About menu item is to display a dialog that contains information about the
-application and/or developer.
-
+(5pts) The Save As menu item is to display a file save dialog that allows the user to
+select the location and name for the file.
 
 (2pts) Exception handling is to be implemented in the code where errors or exceptions
 could occur. If an error occurs the user is to be notified using an appropriate dialog.
-
-
-11. (35pts) The text document should be represented in the application as an object.
-
-You are to create a class called TextDocument that holds the data and methods associated with the text
-document that is being edited
 
 The class must contain methods for opening text files and saving
 text files.
