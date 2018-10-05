@@ -26,7 +26,7 @@ namespace jslz85Assignment4
     public partial class MainWindow : Window
     {
         TextDocument document = new TextDocument();
-        String currentFilePath = "new.txt";
+        String currentFilePath = "";
         bool modified = false;
         
         public MainWindow()
@@ -40,6 +40,10 @@ namespace jslz85Assignment4
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             startSave();
+        }
+        private void Save_As_Click(object sender, RoutedEventArgs e)
+        {
+            startSaveAs();
         }
         private void Open_Click(object sender, RoutedEventArgs e)
         {
@@ -85,18 +89,9 @@ namespace jslz85Assignment4
         }
         private void loadDocument(String filePath)
         {
-            var fStreamEmployee = new FileStream(filePath, FileMode.Open);
-            var binFormatterEmployee = new BinaryFormatter();
-            try
-            {
-                TextDocument currentdocument = document;
-                currentdocument = (TextDocument)binFormatterEmployee.Deserialize(fStreamEmployee);
-            textBox.Text = currentdocument.content;
-            }
-            catch { }
-            fStreamEmployee.Close();
-
-            
+            TextDocument currentDocument = document;
+            currentDocument.open(filePath);
+            textBox.Text = currentDocument.content;
             currentFilePath = filePath;
             unsetModifiedState();
         }
@@ -104,8 +99,8 @@ namespace jslz85Assignment4
         {
             if (!modified) return true;
 
-            string messageBoxText = "The employee needs to be saved.\nDo you want to save?";
-            string caption = "Employee Editor";
+            string messageBoxText = "The Document needs to be saved.\nDo you want to save?";
+            string caption = "Text Editor";
             MessageBoxButton button = MessageBoxButton.YesNoCancel;
             MessageBoxImage icon = MessageBoxImage.Warning;
             // Display message box
@@ -129,6 +124,19 @@ namespace jslz85Assignment4
         }
         private void startSave()
         {
+            if (currentFilePath == "")
+            {
+                startSaveAs();
+            }
+            TextDocument currentDocument = document;
+            currentDocument.content = textBox.Text;
+
+            currentDocument.save(currentFilePath);
+
+            unsetModifiedState();
+        }
+        private void startSaveAs()
+        {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
 
             // http://msdn.microsoft.com/en-us/library/system.io.path.getdirectoryname.aspx
@@ -138,7 +146,6 @@ namespace jslz85Assignment4
                 saveFileDialog.FileName = System.IO.Path.GetFileName(currentFilePath);
                 saveFileDialog.InitialDirectory = System.IO.Path.GetDirectoryName(currentFilePath);
             }
-
             saveFileDialog.DefaultExt = ".txt"; // Default file extension
             saveFileDialog.Filter = "Text Documents (.txt)|*.txt"; // Filter files by extension
             // Show save file dialog box
@@ -152,17 +159,7 @@ namespace jslz85Assignment4
             TextDocument currentDocument = document;
             currentDocument.content = textBox.Text;
 
-            var fStreamEmployee = new FileStream(filePath, FileMode.Create);
-            var binFormatterEmployee = new BinaryFormatter();
-            try
-            {           
-            binFormatterEmployee.Serialize(fStreamEmployee, currentDocument);
-            }
-            catch
-            {
-                
-            }
-            fStreamEmployee.Close();
+            currentDocument.save(filePath);
 
             currentFilePath = filePath;
             unsetModifiedState();
@@ -174,7 +171,7 @@ namespace jslz85Assignment4
             unsetModifiedState();
             if (currentFilePath != "")
             {
-                currentFilePath = System.IO.Path.GetDirectoryName(currentFilePath) + "/new.emp";
+                currentFilePath = System.IO.Path.GetDirectoryName(currentFilePath) + "/new.txt";
             }
         }
         private void unsetModifiedState()
